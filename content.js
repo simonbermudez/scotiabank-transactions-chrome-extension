@@ -43,7 +43,7 @@ const getTransactions = () => {
 }
 
 async function uploadToServer(data = {}) {
-    url = "https://transactions.bermudez.ca/transactions/upload/"
+    url = "https://transaktor.bermudez.ca/transactions/upload/"
     // Default options are marked with *
     const response = await fetch(url, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
