@@ -13,7 +13,10 @@ function parseDate(dateStr) {
 }
 
 const processTransactionsNodeList = (transactionsNodeList) => {
-    return Array.from(transactionsNodeList.querySelectorAll("tr:not([class])")).map(transaction => {
+    if (!transactionsNodeList) {
+        return []
+    }
+    const transactions = Array.from(transactionsNodeList.querySelectorAll("tr:not([class])")).flatMap(transaction => {
         console.log("processing transaction")
         try {
             amount = transaction.querySelectorAll("td")[2].innerText ? - Number(transaction.querySelectorAll("td")[2].innerText) : Number(transaction.querySelectorAll("td")[3].innerText)
@@ -24,8 +27,11 @@ const processTransactionsNodeList = (transactionsNodeList) => {
             }
         } catch (e) {
             console.log("error processing transaction")
+            return []
         }
     })
+    console.log(transactions)
+    return transactions
 }
 
 const getTransactions = () => {
@@ -70,8 +76,6 @@ const scrapeTransactions = async () => {
 }
 window.onload = async (event) => {
     console.log('page is fully loaded');
-    // wait 3 seconds before scraping transactions
-    await new Promise(resolve => setTimeout(resolve, 3000))
     scrapeTransactions().then(transactions => {
         console.log(transactions)
         chrome.storage.local.set({ transactions: transactions }, function(){
