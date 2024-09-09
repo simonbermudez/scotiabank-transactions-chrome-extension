@@ -8,11 +8,15 @@
     },
     "content_scripts": [
         {
-          "matches": ["https://www.scotiaonline.scotiabank.com/online/views/accounts/accountDetails/*"],
+          "matches": ["https://www.scotiaonline.scotiabank.com/online/views/accounts/accountDetails/*", "https://secure.scotiabank.com/accounts/credit/*"],
           "js": ["content.js"]
         }
       ],
     "permissions": [
         "storage"
+    ],
+    "host_permissions": [
+      "https://secure.scotiabank.com/api/credit/*",
+      "https://secure.scotiabank.com/accounts/credit/*"
     ]
   }
