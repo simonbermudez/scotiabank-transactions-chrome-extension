@@ -44,10 +44,11 @@ async function getDataFromScotiaBank() {
 
     let mapper = t => {
         return {
-            id: t.id,
+            id: t.key,
             date: parseDate(t.transactionDate),
             description: t.description,
             amount: t.transactionType == "DEBIT" ? - t.transactionAmount.amount : t.transactionAmount.amount,
+            metadata: t,
         }
     }
 
